@@ -8,37 +8,43 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: transactions.map((tr) {
-      return Card(
-          child: Row(
-        children: <Widget>[
-          Container(
-            child: Text(
-              'R\$ ${tr.value.toString()}',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.purple),
-            ),
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.purple, width: 2)),
-            padding: EdgeInsets.all(10),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final tr = transactions[index];
+          return Card(
+              child: Row(
             children: <Widget>[
-              Text(
-                tr.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              Container(
+                child: Text(
+                  'R\$ ${tr.value.toString()}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.purple),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple, width: 2)),
+                padding: EdgeInsets.all(10),
               ),
-              Text(
-                DateFormat('d MMM y').format(tr.date),
-                style: TextStyle(color: Colors.grey),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    tr.title,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    DateFormat('d MMM y').format(tr.date),
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
               )
             ],
-          )
-        ],
-      ));
-    }).toList());
+          ));
+        },
+      ),
+    );
   }
 }
