@@ -128,7 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
 
-    final pageBody = Column(
+    final pageBody = SafeArea(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           if (_showChart || !isLandScape)
@@ -139,7 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
                 height: availableHeight * (isLandScape ? 1 : 0.7),
                 child: TransactionList(_transactions, _removeTransaction)),
-        ]);
+        ],
+      ),
+    );
 
     return Platform.isIOS
         ? CupertinoPageScaffold(
