@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'adaptative_button.dart';
+import 'adaptative_textField.dart';
+import 'adaptative_datepicker.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
@@ -54,36 +55,23 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
             child: Column(
               children: <Widget>[
-                TextField(
+                AdaptativeTextField(
                   controller: _titleController,
-                  decoration: InputDecoration(labelText: 'Título'),
+                  label: 'Título',
                 ),
-                TextField(
-                  onSubmitted: (value) => _submitForm(),
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  controller: _valueController,
-                  decoration: InputDecoration(labelText: 'Valor (R\$)'),
-                ),
-                Container(
-                  height: 70,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        _selectedDate == null
-                            ? 'Nenhuma data selecionada!'
-                            : 'Data selecionada: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
-                      )),
-                      FlatButton(
-                        textColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          'Selecionar Data',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: _showDatePicker,
-                      )
-                    ],
-                  ),
+                AdaptativeTextField(
+                    onSubmitted: (value) => _submitForm(),
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    controller: _valueController,
+                    label: 'Valor (R\$)'),
+                AdaptativeDatePicker(
+                  selectedDate: _selectedDate,
+                  onDateChanged: (newDate) {
+                    setState(() {
+                      _selectedDate = newDate;
+                    });
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
