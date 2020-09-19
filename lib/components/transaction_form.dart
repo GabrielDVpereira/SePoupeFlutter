@@ -27,20 +27,6 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.onSubmit(title, value, _selectedDate);
   }
 
-  _showDatePicker() async {
-    DateTime dt = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2019),
-        lastDate: DateTime.now());
-    if (dt == null) {
-      return;
-    }
-    setState(() {
-      _selectedDate = dt;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
